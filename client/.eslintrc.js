@@ -20,7 +20,7 @@ module.exports = {
   ],
   plugins: ["react", "react-hooks", "@typescript-eslint"],
   rules: {
-    // Define your custom ESLint rules here, if needed.
+    // Define custom ESLint rules here, if needed.
   },
   settings: {
     react: {

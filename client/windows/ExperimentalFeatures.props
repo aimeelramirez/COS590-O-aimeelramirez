@@ -3,7 +3,7 @@
 
   <!--
     This file contains some important settings that will apply globally for
-    your app and *all* native modules your app consumes. These values were
+    app and *all* native modules app consumes. These values were
     set when you created the app project, and in some cases cannot be
     simply changed here without recreating a new project.
   -->
