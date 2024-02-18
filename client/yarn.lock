@@ -6752,6 +6752,11 @@ react-native-paper@^5.12.3:
     color "^3.1.2"
     use-latest-callback "^0.1.5"
 
+react-native-plaid-link-sdk@^11.5.1:
+  version "11.5.1"
+  resolved "https://registry.npmjs.org/react-native-plaid-link-sdk/-/react-native-plaid-link-sdk-11.5.1.tgz"
+  integrity sha512-RPExKLJtD9u9EP4hRh0rPddxmWonzFtX7O3V00AXakRTwVKwZoG+tT9WEAyjwco6y8SHNUq6r2SaG8FDsGb7Kg==
+
 react-native-safe-area-context@*, react-native-safe-area-context@^4.9.0, "react-native-safe-area-context@>= 3.0.0":
   version "4.9.0"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.9.0.tgz"
