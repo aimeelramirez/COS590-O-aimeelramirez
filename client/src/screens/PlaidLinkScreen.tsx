@@ -1,8 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import { LinkSuccess } from 'react-native-plaid-link-sdk';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
-
+import { WebView, WebViewMessageEvent} from 'react-native-webview';
+import PlaidData from './PlaidData';
+import TransactionList from './TransactionList'; // Import TransactionList component
 
 const SuccessView = ({ metadata }:any) => {
   const {
@@ -33,6 +34,8 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
   const [linkOpened, setLinkOpened] = useState(false);
   const [successMetadata, setSuccessMetadata] = useState<any>(null);
   const [stateData, setStateData] = useState<any>(null);
+  const [statePlaidData, setPlaidData] =  useState<any>(null);
+  const [stateTransactionsData, setTransactionsData] =  useState<any>(null);
 
   const webViewRef = useRef<any>(null);
 
@@ -72,13 +75,34 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
               });
               const result = await response.json();
               console.log(result);
-  
+              const responseAuth = await fetch(`http://localhost:8000/api/auth`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              });
+              const resultAuth = await responseAuth.json();
+              console.log("auth:", resultAuth);
+              setPlaidData(resultAuth)
+              
               // Set the access token or handle other logic as needed
-  
+              const responseTransactions = await fetch(`http://localhost:8000/api/transactions`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              });
+              const resultTransactions = await responseTransactions.json();
+              console.log("transactions:", resultTransactions.latest_transactions);
+             setTransactionsData(resultTransactions.latest_transactions);
+             
+             
               if (!response.ok) {
                 console.log('Error exchanging public token:', response.statusText);
               } else {
                 console.log('Public token exchanged successfully', response);
+                console.log(statePlaidData)
+
               }
             } catch (err) {
               console.error('Error exchanging public token:', err);
@@ -135,8 +159,23 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
         />
       )}
 
-      {successMetadata && (
+      {successMetadata && statePlaidData && (
+        <>
+            <View style={styles.container}>
+
+         <View style={styles.plaidContainer}>
+
         <SuccessView metadata={successMetadata} />
+       
+       
+
+        </View>  
+        </View>
+        <ScrollView>
+         <TransactionList transactions={stateTransactionsData} />
+         </ScrollView><ScrollView><PlaidData plaidData={statePlaidData}/>
+         </ScrollView>
+        </>
       )}
     </View>
   );
@@ -149,6 +188,18 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  containerMeta: {
+    flex: 1,
+    backgroundColor: '#f4f4f4', // Light gray background
+    padding: 20,
+  },
+  plaidContainer: {
+    backgroundColor: 'white', // White container background
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+    elevation: 3, // Add elevation for a slight shadow effect
   },
   title: {
     fontSize: 20,
