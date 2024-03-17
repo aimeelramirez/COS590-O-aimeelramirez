@@ -28,42 +28,18 @@ const PlaidScreen: React.FC = () => {
     console.log(token);
   }, []);
 
-  const handleSuccess = useCallback(
-    async (success: LinkSuccess) => {
-      console.log(success);
 
-      try {
-        const response = await fetch(`http://localhost:8000/api/exchange_public_token`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ public_token: success.publicToken }),
-        });
-
-        if (!response.ok) {
-          console.log('Error exchanging public token:', response.statusText);
-        } else {
-          console.log('Public token exchanged successfully');
-        }
-      } catch (err) {
-        console.error('Error exchanging public token:', err);
-      }
-    },
-    [] // Dependency array is empty as there are no dependencies
-  );
 
   return (
     <View style={styles.container}>
       <PlaidLinkScreen
         token={token}
         publicToken
-        onSuccess={handleSuccess}
         onExit={(response: LinkExit) => {
           console.log(response);
         }}
       />
-      <Text style={{ color: 'black' }}>Test Plaid Screen</Text>
+      <Text style={{ color: 'black' }}>Calling the /API to Client... Test Plaid Screen</Text>
     </View>
   );
 };

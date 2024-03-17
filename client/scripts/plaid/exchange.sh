@@ -1,5 +1,5 @@
 #!/bin/bash
-PLAID_SECRET="83472a4befb8c0763969ceac629808"
+PLAID_SECRET="42aceb2dfa35c163a919f307b56ff4"
 PLAID_CLIENT_ID="641656dc53f4fd001383b29b"
 PUBLIC_TOKEN="kyGYFtSeT3fPpac"  # Replace with the actual public token
 

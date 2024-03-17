@@ -1,7 +1,7 @@
 // OnboardingScreen.tsx
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-
+import {PlaidLinkScreen } from './PlaidLinkScreen';
 interface OnboardingScreenProps {
   navigation: any;
 }
@@ -15,8 +15,8 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }) => {
   return (
     <View>
       <Text>Welcome to the Onboarding Screen!</Text>
-      <Button title="Continue" onPress={handleContinue} />
-    </View>
+<PlaidLinkScreen/>    
+</View>
   );
 };
 
