@@ -5,6 +5,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import HomeScreen from './src/screens/HomeScreen'; 
 import PlaidScreen from './src/screens/PlaidScreen'; 
+import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 import OnboardingScreen from './src/components/OnboardingScreen'
 // import FontAwesome from 'react-native-vector-icons/fontawesome';
@@ -22,11 +24,11 @@ const AppNavigator = () => {
       <Tab.Screen
             name="Home"
             component={HomeScreen}
-            // options={{
-            //   tabBarIcon: () => (
-            //   // <FontAwesome name="home" color="#ff0000" size={20} />
-            //   ),
-            // }}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={faMugSaucer} />
+                ),
+            }}
           /><Tab.Screen
           name="Plaid"
           component={PlaidScreen}

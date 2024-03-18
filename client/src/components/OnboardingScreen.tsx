@@ -1,21 +1,22 @@
 // OnboardingScreen.tsx
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import {PlaidLinkScreen } from './PlaidLinkScreen';
+import { View, Text, Button, StyleSheet, NativeTouchEvent } from 'react-native';
+import {commonStyles}  from '../styles/globalStyles';
+
 interface OnboardingScreenProps {
   navigation: any;
 }
 
 const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }) => {
   const handleContinue = () => {
-    // Perform any navigation or state updates as needed
-    navigation.navigate('HomeScreen');
+    navigation.navigate('Home');
   };
 
   return (
     <View>
-      <Text>Welcome to the Onboarding Screen!</Text>
-<PlaidLinkScreen/>    
+      
+      <Text style={commonStyles.text}>Welcome to the Onboarding Screen!</Text>
+      <Button title="Go Home"  color={commonStyles.button.backgroundColor} onPress={handleContinue}/>
 </View>
   );
 };

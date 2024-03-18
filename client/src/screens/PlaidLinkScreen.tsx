@@ -36,6 +36,7 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
   const [stateData, setStateData] = useState<any>(null);
   const [statePlaidData, setPlaidData] =  useState<any>(null);
   const [stateTransactionsData, setTransactionsData] =  useState<any>(null);
+  const [showResult, setSetResult] = useState(false);
 
   const webViewRef = useRef<any>(null);
 
@@ -51,16 +52,16 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
     try {
       const parsedData = JSON.parse(data);
       if (typeof parsedData === 'object' && parsedData !== null) {
-        console.log('Parsed data:', parsedData);
+        //console.log('Parsed data:', parsedData);
         // Continue with your logic here
         if (parsedData.action === "plaid_link-undefined::connected") {
           const metadata = parsedData.metadata;
   
-          console.log('Plaid Link opened:', metadata);
+          //console.log('Plaid Link opened:', metadata);
           // Handle the "OPEN" event as needed
   
           publicToken = metadata.public_token;
-          console.log('Received public_token:', publicToken);
+          //console.log('Received public_token:', publicToken);
           setStateData(publicToken)
           setSuccessMetadata(metadata);
   
@@ -74,7 +75,8 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
                 body: JSON.stringify({ public_token: publicToken }),
               });
               const result = await response.json();
-              console.log(result);
+              setSetResult(result);
+              //console.log(result);
               const responseAuth = await fetch(`http://localhost:8000/api/auth`, {
                 method: 'GET',
                 headers: {
@@ -137,6 +139,8 @@ const PlaidLinkScreen = ({ token, publicToken }: any) => {
       <Text style={styles.title}>PlaidLinkScreen {token}</Text>
       <Text style={styles.title}>Getting Public token after success:  {stateData}</Text>
 
+      
+      <Text>{showResult} </Text>
       {!linkOpened && (
         <TouchableOpacity style={styles.button} onPress={handleOpenLink}>
           <Text style={styles.buttonText}>Open Link</Text>
